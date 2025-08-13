@@ -2,9 +2,8 @@
 
 A clean, interactive stopwatch built with **HTML, CSS, and JavaScript**, featuring **start, pause, reset, and lap tracking**. Perfect for timing activities, workouts, experiments, or speed runs.  
 
-**🔗 Live Demo:** [View Stopwatch](https://yourusername.github.io/stopwatch/) <!-- Replace with your actual link -->
+**🔗 Live Demo:** [View Stopwatch](https://shubhamrana7076.github.io/SCT_WD_2/) 
 
-![Stopwatch Demo](https://via.placeholder.com/800x400?text=Stopwatch+Preview)
 
 ---
 
