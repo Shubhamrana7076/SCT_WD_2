@@ -121,83 +121,86 @@
     </div>
   </div>
 
-  <script>
-    let [ms, s, m, h] = [0, 0, 0, 0];
-    let display = document.getElementById("display");
-    let interval = null;
+<script>
+  let [ms, s, m, h] = [0, 0, 0, 0];
+  let display = document.getElementById("display");
+  let interval = null;
 
-    const startBtn = document.getElementById("start");
-    const pauseBtn = document.getElementById("pause");
-    const resetBtn = document.getElementById("reset");
-    const lapBtn = document.getElementById("lap");
-    const lapList = document.getElementById("lapList");
+  const startBtn = document.getElementById("start");
+  const pauseBtn = document.getElementById("pause");
+  const resetBtn = document.getElementById("reset");
+  const lapBtn = document.getElementById("lap");
+  const lapList = document.getElementById("lapList");
 
-    let lastLapTime = 0;
+  let lastLapTime = 0;
 
-    function getTotalMilliseconds() {
-      return h * 3600000 + m * 60000 + s * 1000 + ms * 10;
-    }
+  function getTotalMilliseconds() {
+    return h * 3600000 + m * 60000 + s * 1000 + ms * 10;
+  }
 
-    function formatTime(msTotal) {
-      let hours = Math.floor(msTotal / 3600000);
-      let minutes = Math.floor((msTotal % 3600000) / 60000);
-      let seconds = Math.floor((msTotal % 60000) / 1000);
-      let milliseconds = Math.floor((msTotal % 1000) / 10);
+  function formatTime(msTotal) {
+    let hours = Math.floor(msTotal / 3600000);
+    let minutes = Math.floor((msTotal % 3600000) / 60000);
+    let seconds = Math.floor((msTotal % 60000) / 1000);
+    let milliseconds = Math.floor((msTotal % 1000) / 10);
 
-      return ${hours.toString().padStart(2, '0')}: +
-        ${minutes.toString().padStart(2, '0')}: +
-        ${seconds.toString().padStart(2, '0')}: +
-        ${milliseconds.toString().padStart(2, '0')};
-    }
+    // ✅ Use backticks for template literals
+    return `${hours.toString().padStart(2, '0')}:` +
+           `${minutes.toString().padStart(2, '0')}:` +
+           `${seconds.toString().padStart(2, '0')}:` +
+           `${milliseconds.toString().padStart(2, '0')}`;
+  }
 
-    function updateDisplay() {
-      display.innerText = formatTime(getTotalMilliseconds());
-    }
+  function updateDisplay() {
+    display.innerText = formatTime(getTotalMilliseconds());
+  }
 
-    function stopwatch() {
-      ms += 1;
-      if (ms === 100) {
-        ms = 0;
-        s++;
-        if (s === 60) {
-          s = 0;
-          m++;
-          if (m === 60) {
-            m = 0;
-            h++;
-          }
+  function stopwatch() {
+    ms += 1;
+    if (ms === 100) {
+      ms = 0;
+      s++;
+      if (s === 60) {
+        s = 0;
+        m++;
+        if (m === 60) {
+          m = 0;
+          h++;
         }
       }
-      updateDisplay();
     }
+    updateDisplay();
+  }
 
-    startBtn.onclick = () => {
-      if (interval !== null) clearInterval(interval);
-      interval = setInterval(stopwatch, 10);
-    };
+  startBtn.onclick = () => {
+    if (interval !== null) clearInterval(interval);
+    interval = setInterval(stopwatch, 10);
+  };
 
-    pauseBtn.onclick = () => {
-      clearInterval(interval);
-    };
+  pauseBtn.onclick = () => {
+    clearInterval(interval);
+  };
 
-    resetBtn.onclick = () => {
-      clearInterval(interval);
-      [ms, s, m, h] = [0, 0, 0, 0];
-      lastLapTime = 0;
-      updateDisplay();
-      lapList.innerHTML = "";
-    };
+  resetBtn.onclick = () => {
+    clearInterval(interval);
+    [ms, s, m, h] = [0, 0, 0, 0];
+    lastLapTime = 0;
+    updateDisplay();
+    lapList.innerHTML = "";
+  };
 
-    lapBtn.onclick = () => {
-      const currentLapMs = getTotalMilliseconds();
-      const lapDiff = currentLapMs - lastLapTime;
-      lastLapTime = currentLapMs;
+  lapBtn.onclick = () => {
+    const currentLapMs = getTotalMilliseconds();
+    const lapDiff = currentLapMs - lastLapTime;
+    lastLapTime = currentLapMs;
 
-      const li = document.createElement("li");
-      li.innerHTML = Total: ${formatTime(currentLapMs)} | Interval: ${formatTime(lapDiff)};
-      lapList.insertBefore(li, lapList.firstChild);
-    };
-  </script>
+    const li = document.createElement("li");
+    // ✅ Use backticks here too
+    li.innerHTML = `Total: ${formatTime(currentLapMs)} | Interval: ${formatTime(lapDiff)}`;
+    lapList.insertBefore(li, lapList.firstChild);
+  };
+</script>
+
 </body>
 
 </html>
